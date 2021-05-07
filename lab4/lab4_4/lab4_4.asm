@@ -38,16 +38,16 @@ F1: sbic PIND,SW0 ;проверка нажатия SW0
 	ldi temp,0x00 ;запись числа в
 	out OCR1AH,temp ; регистры сравнения,
 	out OCR1BH,temp ; первым записывается
-	ldi temp,0xff ; старший байт
+	ldi temp,0x7f ; старший байт
 	out OCR1AL,temp
 	out OCR1BL,temp
 F2: sbic PIND,SW1 ; проверка нажатия SW1
 rjmp F1
 ;*** Установка порога F2
-	ldi temp,0x02 ;запись числа в
+	ldi temp,0x01 ;запись числа в
 	out OCR1AH,temp ; регистры сравнения,
 	out OCR1BH,temp ; первым записывается
-	ldi temp,0xff ; старший байт
+	ldi temp,0x7f ; старший байт
 	out OCR1AL,temp
 	out OCR1BL,temp
 	rjmp F1
