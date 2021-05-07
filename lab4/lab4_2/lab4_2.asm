@@ -32,7 +32,7 @@ INIT: ldi temp,low(RAMEND) ;установка
 	out TIMSK,temp ; переполнению таймера Т1
 	clr temp ;таймер Т1
 	out TCCR1B,temp ; остановлен
-	ldi temp,0x80 ; загрузка TCNT1
+	ldi temp,0xC0 ; загрузка TCNT1
 	out TCNT1H,temp
 	ldi temp,0x00
 	out TCNT1L,temp
@@ -59,7 +59,7 @@ T1_OVF: ser temp
 	out PORTB,temp ;выключение светодиодов
 	clr temp ;останов
 	out TCCR1B,temp ; таймера Т1
-	ldi temp,0x80
+	ldi temp,0xC0
 	out TCNT1H,temp ; перезагрузка TCNT1
 	ldi temp,0x00
 	out TCNT1L,temp
