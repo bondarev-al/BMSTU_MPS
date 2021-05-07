@@ -39,13 +39,13 @@ INIT: ldi temp,low(RAMEND) ;установка
 	out TCCR1A,temp ; OC1B изменяются на противоположные
 	clr temp ;останов
 	out TCCR1B,temp ; таймера
-	ldi temp,0x08 ;запись числа в
+	ldi temp,0x0E ;запись числа в
 	out OCR1BH,temp ; регистр сравнения,
-	ldi temp,0x00 ; первым записывается
+	ldi temp,0x13 ; первым записывается
 	out OCR1BL,temp ; старший байт
-	ldi temp,0x10 ;запись числа в
+	ldi temp,0x38 ;запись числа в
 	out OCR1AH,temp ; регистр сравнения,
-	ldi temp,0x00 ; первым записывается
+	ldi temp,0x4E ; первым записывается
 	out OCR1AL,temp ; старший байт
 	clr temp ;обнуление
 	out TCNT1H,temp ; счётного
