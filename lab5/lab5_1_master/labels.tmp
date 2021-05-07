@@ -1,0 +1,27 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.42</VERSION>
+ <DEVICE>ATmega8515</DEVICE>
+ <WORKING_DIR>E:\BMSTU\6_Microprocessors\labs\lab5\lab5_1_master</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>E:\BMSTU\6_Microprocessors\labs\lab5\lab5_1_master\lab5_1_master.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes\m8515def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>E:\BMSTU\6_Microprocessors\labs\lab5\lab5_1_master\lab5_1_master.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>E:\BMSTU\6_Microprocessors\labs\lab5\lab5_1_master\lab5_1_master.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>E:\BMSTU\6_Microprocessors\labs\lab5\lab5_1_master\lab5_1_master.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <init><FILE>E:\BMSTU\6_Microprocessors\labs\lab5\lab5_1_master\lab5_1_master.asm</FILE><LINE>16</LINE></init>
+  <OUTPUT><FILE>E:\BMSTU\6_Microprocessors\labs\lab5\lab5_1_master\lab5_1_master.asm</FILE><LINE>31</LINE></OUTPUT>
+  <Wait_Transmit><FILE>E:\BMSTU\6_Microprocessors\labs\lab5\lab5_1_master\lab5_1_master.asm</FILE><LINE>36</LINE></Wait_Transmit>
+  <loop><FILE>E:\BMSTU\6_Microprocessors\labs\lab5\lab5_1_master\lab5_1_master.asm</FILE><LINE>41</LINE></loop>
+ </LABELS>
+</ASSEMBLER_INFO>
