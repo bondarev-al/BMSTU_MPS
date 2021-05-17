@@ -1,0 +1,187 @@
+
+lab7_2.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000bc  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .stab         000006cc  00000000  00000000  00000110  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  2 .stabstr      00000097  00000000  00000000  000007dc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_aranges 00000020  00000000  00000000  00000873  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 0000002a  00000000  00000000  00000893  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000001c1  00000000  00000000  000008bd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000123  00000000  00000000  00000a7e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000216  00000000  00000000  00000ba1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000030  00000000  00000000  00000db8  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000103  00000000  00000000  00000de8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000000ae  00000000  00000000  00000eeb  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_pubtypes 00000038  00000000  00000000  00000f99  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	10 c0       	rjmp	.+32     	; 0x22 <__ctors_end>
+   2:	18 c0       	rjmp	.+48     	; 0x34 <__vector_1>
+   4:	16 c0       	rjmp	.+44     	; 0x32 <__bad_interrupt>
+   6:	15 c0       	rjmp	.+42     	; 0x32 <__bad_interrupt>
+   8:	14 c0       	rjmp	.+40     	; 0x32 <__bad_interrupt>
+   a:	13 c0       	rjmp	.+38     	; 0x32 <__bad_interrupt>
+   c:	12 c0       	rjmp	.+36     	; 0x32 <__bad_interrupt>
+   e:	11 c0       	rjmp	.+34     	; 0x32 <__bad_interrupt>
+  10:	10 c0       	rjmp	.+32     	; 0x32 <__bad_interrupt>
+  12:	0f c0       	rjmp	.+30     	; 0x32 <__bad_interrupt>
+  14:	0e c0       	rjmp	.+28     	; 0x32 <__bad_interrupt>
+  16:	0d c0       	rjmp	.+26     	; 0x32 <__bad_interrupt>
+  18:	0c c0       	rjmp	.+24     	; 0x32 <__bad_interrupt>
+  1a:	0b c0       	rjmp	.+22     	; 0x32 <__bad_interrupt>
+  1c:	0a c0       	rjmp	.+20     	; 0x32 <__bad_interrupt>
+  1e:	09 c0       	rjmp	.+18     	; 0x32 <__bad_interrupt>
+  20:	08 c0       	rjmp	.+16     	; 0x32 <__bad_interrupt>
+
+00000022 <__ctors_end>:
+  22:	11 24       	eor	r1, r1
+  24:	1f be       	out	0x3f, r1	; 63
+  26:	cf e5       	ldi	r28, 0x5F	; 95
+  28:	d2 e0       	ldi	r29, 0x02	; 2
+  2a:	de bf       	out	0x3e, r29	; 62
+  2c:	cd bf       	out	0x3d, r28	; 61
+  2e:	32 d0       	rcall	.+100    	; 0x94 <main>
+  30:	43 c0       	rjmp	.+134    	; 0xb8 <_exit>
+
+00000032 <__bad_interrupt>:
+  32:	e6 cf       	rjmp	.-52     	; 0x0 <__vectors>
+
+00000034 <__vector_1>:
+#include <avr/interrupt.h>
+#include <avr/io.h>
+#include <util/delay.h>
+// Обработки внешнего прерывания INT0
+ISR(INT0_vect)
+{ 
+  34:	1f 92       	push	r1
+  36:	0f 92       	push	r0
+  38:	0f b6       	in	r0, 0x3f	; 63
+  3a:	0f 92       	push	r0
+  3c:	11 24       	eor	r1, r1
+  3e:	2f 93       	push	r18
+  40:	3f 93       	push	r19
+  42:	4f 93       	push	r20
+  44:	5f 93       	push	r21
+  46:	8f 93       	push	r24
+	char timer; // локальная переменная
+	timer = TCNT0;
+  48:	82 b7       	in	r24, 0x32	; 50
+	if (timer != 0)
+  4a:	88 23       	and	r24, r24
+  4c:	c9 f0       	breq	.+50     	; 0x80 <__SREG__+0x41>
+	{
+		TCNT0 = 0; // сброс таймера/счётчика
+  4e:	12 be       	out	0x32, r1	; 50
+		PORTB |= (1<<PB6); //PORTB=0b11000001 (выключаем светодиод LED6)
+  50:	c6 9a       	sbi	0x18, 6	; 24
+		do 
+		{
+			PORTB &= ~(1<<PB7);//PORTB=0b01000001 (включаем светодиод LED7)
+  52:	c7 98       	cbi	0x18, 7	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  54:	2f e3       	ldi	r18, 0x3F	; 63
+  56:	3d e0       	ldi	r19, 0x0D	; 13
+  58:	43 e0       	ldi	r20, 0x03	; 3
+  5a:	21 50       	subi	r18, 0x01	; 1
+  5c:	30 40       	sbci	r19, 0x00	; 0
+  5e:	40 40       	sbci	r20, 0x00	; 0
+  60:	e1 f7       	brne	.-8      	; 0x5a <__SREG__+0x1b>
+  62:	00 c0       	rjmp	.+0      	; 0x64 <__SREG__+0x25>
+  64:	00 00       	nop
+			_delay_ms(1000); // задержка 500 мс
+			PORTB |= (1<<PB7); //PORTB=0b11000001 (выключаем светодиод LED7)
+  66:	c7 9a       	sbi	0x18, 7	; 24
+  68:	2f e3       	ldi	r18, 0x3F	; 63
+  6a:	3d e0       	ldi	r19, 0x0D	; 13
+  6c:	43 e0       	ldi	r20, 0x03	; 3
+  6e:	21 50       	subi	r18, 0x01	; 1
+  70:	30 40       	sbci	r19, 0x00	; 0
+  72:	40 40       	sbci	r20, 0x00	; 0
+  74:	e1 f7       	brne	.-8      	; 0x6e <__SREG__+0x2f>
+  76:	00 c0       	rjmp	.+0      	; 0x78 <__SREG__+0x39>
+  78:	00 00       	nop
+			_delay_ms(1000);
+		} while (--timer != 0);
+  7a:	81 50       	subi	r24, 0x01	; 1
+  7c:	51 f7       	brne	.-44     	; 0x52 <__SREG__+0x13>
+		PORTB &= ~(1<<PB6); //PORTB=0b10000001 (включаем светодиод LED6)
+  7e:	c6 98       	cbi	0x18, 6	; 24
+	}
+}
+  80:	8f 91       	pop	r24
+  82:	5f 91       	pop	r21
+  84:	4f 91       	pop	r20
+  86:	3f 91       	pop	r19
+  88:	2f 91       	pop	r18
+  8a:	0f 90       	pop	r0
+  8c:	0f be       	out	0x3f, r0	; 63
+  8e:	0f 90       	pop	r0
+  90:	1f 90       	pop	r1
+  92:	18 95       	reti
+
+00000094 <main>:
+
+int main(void)
+{
+	// Инициализация портов
+	DDRB=0xC0; // PB7,PB6 для вывода на LED7,LED6 PB0- для ввода
+  94:	80 ec       	ldi	r24, 0xC0	; 192
+  96:	87 bb       	out	0x17, r24	; 23
+	PORTB=0b10000001; // выключаем LED7, PB0-подтягивающий резистор кнопки
+  98:	81 e8       	ldi	r24, 0x81	; 129
+  9a:	88 bb       	out	0x18, r24	; 24
+	DDRD=0;
+  9c:	11 ba       	out	0x11, r1	; 17
+	PORTD=(1<<PD2); // PD2-подтягивающий резистор
+  9e:	84 e0       	ldi	r24, 0x04	; 4
+  a0:	82 bb       	out	0x12, r24	; 18
+
+	// Инициализация таймера 0
+	TCCR0=0x06;
+  a2:	86 e0       	ldi	r24, 0x06	; 6
+  a4:	83 bf       	out	0x33, r24	; 51
+	TCNT0=0x00;
+  a6:	12 be       	out	0x32, r1	; 50
+
+	GICR=(1<<INT0); // инициализация прерывания INT0 в GIСR (или GIMSK)
+  a8:	80 e4       	ldi	r24, 0x40	; 64
+  aa:	8b bf       	out	0x3b, r24	; 59
+	MCUCR=(1<<SE); // разрешение перехода в режим Idle
+  ac:	80 e2       	ldi	r24, 0x20	; 32
+  ae:	85 bf       	out	0x35, r24	; 53
+	sei(); // глобальное разрешение прерываний
+  b0:	78 94       	sei
+	for (;;) 
+	{
+		asm("sleep"); // переход в режим Idle
+  b2:	88 95       	sleep
+		asm("nop");
+  b4:	00 00       	nop
+  b6:	fd cf       	rjmp	.-6      	; 0xb2 <main+0x1e>
+
+000000b8 <_exit>:
+  b8:	f8 94       	cli
+
+000000ba <__stop_program>:
+  ba:	ff cf       	rjmp	.-2      	; 0xba <__stop_program>
