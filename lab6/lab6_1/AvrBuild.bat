@@ -1,0 +1,2 @@
+@ECHO OFF
+"C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\avrasm2.exe" -S "E:\BMSTU\6_Microprocessors\labs\lab6\lab6_1\labels.tmp" -fI -W+ie -C V2E -o "E:\BMSTU\6_Microprocessors\labs\lab6\lab6_1\lab6_1_send.hex" -d "E:\BMSTU\6_Microprocessors\labs\lab6\lab6_1\lab6_1_send.obj" -e "E:\BMSTU\6_Microprocessors\labs\lab6\lab6_1\lab6_1_send.eep" -m "E:\BMSTU\6_Microprocessors\labs\lab6\lab6_1\lab6_1_send.map" "E:\BMSTU\6_Microprocessors\labs\lab6\lab6_1\lab6_1_send.asm"
