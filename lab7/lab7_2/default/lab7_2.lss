@@ -63,9 +63,9 @@ Disassembly of section .text:
   32:	e6 cf       	rjmp	.-52     	; 0x0 <__vectors>
 
 00000034 <__vector_1>:
-#include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
+
 // Обработки внешнего прерывания INT0
 ISR(INT0_vect)
 { 
@@ -100,9 +100,9 @@ ISR(INT0_vect)
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-  54:	2f e3       	ldi	r18, 0x3F	; 63
-  56:	3d e0       	ldi	r19, 0x0D	; 13
-  58:	43 e0       	ldi	r20, 0x03	; 3
+  54:	2f ef       	ldi	r18, 0xFF	; 255
+  56:	34 e3       	ldi	r19, 0x34	; 52
+  58:	4c e0       	ldi	r20, 0x0C	; 12
   5a:	21 50       	subi	r18, 0x01	; 1
   5c:	30 40       	sbci	r19, 0x00	; 0
   5e:	40 40       	sbci	r20, 0x00	; 0
@@ -112,9 +112,9 @@ ISR(INT0_vect)
 			_delay_ms(1000); // задержка 500 мс
 			PORTB |= (1<<PB7); //PORTB=0b11000001 (выключаем светодиод LED7)
   66:	c7 9a       	sbi	0x18, 7	; 24
-  68:	2f e3       	ldi	r18, 0x3F	; 63
-  6a:	3d e0       	ldi	r19, 0x0D	; 13
-  6c:	43 e0       	ldi	r20, 0x03	; 3
+  68:	2f ef       	ldi	r18, 0xFF	; 255
+  6a:	34 e3       	ldi	r19, 0x34	; 52
+  6c:	4c e0       	ldi	r20, 0x0C	; 12
   6e:	21 50       	subi	r18, 0x01	; 1
   70:	30 40       	sbci	r19, 0x00	; 0
   72:	40 40       	sbci	r20, 0x00	; 0

@@ -2,9 +2,11 @@
 на кнопку SW0(PINB0).Затем после нажатия на кнопку SW2(PIND2) переключает
 светодиод LED7 по значению таймера. В режиме ожидания включен светодиод LED6.*/
 
+#define F_CPU 4000000L
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
+
 // Обработки внешнего прерывания INT0
 ISR(INT0_vect)
 { 
